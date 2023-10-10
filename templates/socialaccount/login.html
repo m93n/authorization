@@ -1,0 +1,47 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock head_title %}
+
+{% block content %}
+<div class="limiter">
+    <div class="container-login100" style="background-image: url({% static 'images/bg-01.jpg' %});">
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form validate-form" method="post">
+                {% if process == "connect" %}
+                <span class="login100-form-title p-b-49">
+                    {% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}
+                </span>
+                <div class="text2 text-center p-t-20 p-b-54">
+                    <span>
+                        {% blocktrans with provider.name as provider %}
+                        You are about to connect a new third party account from {{ provider}}.
+                        {% endblocktrans %}
+                    </span>
+                </div>
+                {% else %}
+                <span class="login100-form-title p-b-49">
+                    {% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}
+                </span>
+                <div class="text2 text-center p-t-20 p-b-54">
+                    <span>
+                        {% blocktrans with provider.name as provider %}You are about to sign in using a third party account from {{ provider}}.{% endblocktrans %}
+                    </span>
+                </div>
+                {% endif %}
+
+                {% csrf_token %}
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn" type="submit">
+                            {% trans "Continue" %}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
